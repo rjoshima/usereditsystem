@@ -1,14 +1,30 @@
-<p id="notice"><%= notice %></p>
+<p id="notice" class="alert alert-success"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<aside class="sidebar">
+  <!-- 以下に指定されたコードを貼り付け、このユーザーのimage_forヘルパーを呼び出してください -->
+  <section>
+    <span class="label">プロフィール画像</span>
+    <h3 class="user-info">
+      <!-- ここでimage_forヘルパーを呼び出してください -->
+      <%= image_for(@user) %>
+    </h3>
+  </section>
+  <section>
+    <span class="label">ユーザー</span>
+    <h3 class="user-info"><%= @user.name %></h3>
+  </section>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <section>
+    <span class="label">メールアドレス</span>
+    <h3 class="user-info"><%= @user.email %></h3>
+  </section>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+  <section>
+    <small><%= link_to 'プロフィールを編集', edit_user_path(@user) %></small>
+  </section>
+
+</aside>
+
+<ul class="notes">
+  <%= render @notes %>
+</ul>

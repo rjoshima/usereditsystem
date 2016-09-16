@@ -1,10 +1,10 @@
-class CreateNotes < ActiveRecord::Migration[5.0]
+class CreateNotes < ActiveRecord::Migration
   def change
     create_table :notes do |t|
-      t.string :titile
-      t.string :content
+      t.string :title
+      t.text :content
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
