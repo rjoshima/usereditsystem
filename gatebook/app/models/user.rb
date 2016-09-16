@@ -2,10 +2,15 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :validatable
   has_many :notes
 
-  validates :name, presence: true
+  # 後の演習にてdeviseでnameを登録できるようにするまで、一時的にnameのバリデーションをコメントアウトしています
+  # validates :name, presence: true
+  # deviseのvalidatableによって以下と同じバリデーションが設定されるのでコメントアウトしています
+  # validates :email, presence: true, uniqueness: true
+
+  # validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
   def set_image(file)
