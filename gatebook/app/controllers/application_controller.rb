@@ -1,5 +1,12 @@
 class ApplicationController < ActionController::Base
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # 以下の1行は消さないでください
-  def default_url_options() {instanceId: 'c2e95ca13bc220330012e041d503ed396415b6e7bc40597214d07bbf42475423', identifier: 'USER'}.merge(super) end
+  # 以下で、ApplicationHelperをincludeしてください
+  include ApplicationHelper
+
+  private
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.for(:sign_up) << :name
+  end
 end
