@@ -1,19 +1,17 @@
 class NotesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update]
-  before_action :set_note, only: [:show, :edit, :update, :destroy]
+  before_action :set_note, only: [:show, :edit, :update, :destroy, :liking_users]
 
   def show
   end
 
   def create
-    # @notesを定義してください
     @note = current_user.notes.build(note_params)
     if @note.save
       redirect_to @note, notice: "投稿が保存されました"
     else
       @notes = Note.all.order(created_at: :desc)
-    # renderメソッドで表示するビューが、views/home/top.html.erbになるように変更してください
       render 'home/top'
     end
   end
@@ -31,8 +29,14 @@ class NotesController < ApplicationController
 
   def destroy
     @note.destroy
-    redirect_to notes_path
+    redirect_to root_path
   end
+
+  def liking_users
+    @users = @note.liking_users
+  end
+
+
 
   private
 

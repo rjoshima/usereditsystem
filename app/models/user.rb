@@ -4,14 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :validatable
   has_many :notes
+  has_many :likes
+  has_many :like_notes, through: :likes, source: :note
 
-  # 後の演習にてdeviseでnameを登録できるようにするまで、一時的にnameのバリデーションをコメントアウトしています
-  # validates :name, presence: true
-  # deviseのvalidatableによって以下と同じバリデーションが設定されるのでコメントアウトしています
-  # validates :email, presence: true, uniqueness: true
-
-  # validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  validates :name, presence: true
 
   def set_image(file)
     if !file.nil?

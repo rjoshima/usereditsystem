@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user, only: [:edit, :update]
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :like_notes]
+
 
   def index
     @users = User.all
@@ -9,6 +10,7 @@ class UsersController < ApplicationController
 
   def show
     @notes = @user.notes
+    @title = "投稿一覧"
   end
 
   def edit
@@ -25,6 +27,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def like_notes
+    @notes = @user.like_notes
+    @title = "いいね！一覧"
+    render :show
+  end
+
   private
 
     def set_user
@@ -37,7 +45,6 @@ class UsersController < ApplicationController
 
     def correct_user
       user = User.find(params[:id])
-      # if文をcurrent_user?ヘルパーを用いて書き換えてください
       if !current_user?(user)
         redirect_to root_path, alert: '許可されていないページです'
       end
