@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :validatable
   has_many :notes
+
   has_many :likes
   has_many :like_notes, through: :likes, source: :note
 
